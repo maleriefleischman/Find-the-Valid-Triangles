@@ -5,35 +5,38 @@ var triangles = [[785,516,744],[272,511,358],[801,791,693],[572,150,74],[644,534
 var triangle = 0;
 
 
-
+//traverses the outer array and finds the largest number in each sub array
 outer:
 for (j=0;j<triangles.length;j++){
 
 var c = triangles[j].reduce(function(a,b) {
 	return Math.max(a,b)
 });
-
+// holds the sum of the remaining numbers
 var ab = 0;
+	// holds the number of maximum numbers in a subarray
 var numMaxes = 0;
-	
+	//checks for duplicate maximum numbers in a subarray
 	for (k=0;k<triangles[j].length;k++){
 		if (triangles[j][k] == c ){
 			numMaxes++
-			}			
+			}	
+		//checks for a side equal to 0, as this cannot be a valid triangle
 		if (triangles[j][k] == 0 ){
 			continue outer;
 		}
+		//checks to see if the sum of the smaller value is larger or smaller than the maximum number. If so then it is not a valid triangle
 		if (triangles[j][k] < c ){
 			ab = ab + triangles[j][k]
 		}	
 	}	
 	
 	
-			
+	// if there are duplicate maximum numbers in a subarray then the sum of any two sides will always be greater than the remaining.		
 if (numMaxes >= 2){
 			triangle++;
 		}
-	
+	// if the sum of the smallest numbers is larger than the maximum number then we can infer that the sum of any two sides will be greater than the remaining
 if (ab > c){
 	triangle++;
 	
